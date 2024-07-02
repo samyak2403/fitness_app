@@ -21,8 +21,11 @@ class OnboardingScreen1 extends StatelessWidget {
         actions: [
           TxtButton(
             txt: 'Skip',
-            onClick: () => changeScreen(context, const OnboardingScreen4(),
-                PageTransitionType.rightToLeftWithFade, 300),
+            onClick: () => changeScreenRemoveUntil(
+                context,
+                const OnboardingScreen4(),
+                PageTransitionType.rightToLeftWithFade,
+                300),
             txtClr: ColorTemplates.textClr,
             fontWt: FontWeight.w500,
             fontSz: 18.sp,
@@ -60,7 +63,7 @@ class OnboardingScreen1 extends StatelessWidget {
                   height: 300.h,
                   width: 300.w,
                   child: LottieBuilder.asset(
-                    'assets/lotties/onboarding1.json',
+                    'assets/lotties/onboarding/onboarding1.json',
                   ),
                 ),
                 SizedBox(

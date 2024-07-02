@@ -56,7 +56,7 @@ class OnboardingScreen3 extends StatelessWidget {
                   height: 300.h,
                   width: 300.w,
                   child: LottieBuilder.asset(
-                    'assets/lotties/onboarding3.json',
+                    'assets/lotties/onboarding/onboarding3.json',
                   ),
                 ),
                 SizedBox(
@@ -84,7 +84,7 @@ class OnboardingScreen3 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedIconBttn(
-                      onClick: () => changeScreen(
+                      onClick: () => changeScreenRemoveUntil(
                           context,
                           const OnboardingScreen4(),
                           PageTransitionType.rightToLeftWithFade,

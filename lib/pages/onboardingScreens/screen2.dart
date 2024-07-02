@@ -19,7 +19,7 @@ class OnboardingScreen2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           leading: IconBttn(
-              onClick: () => changeScreen(context, OnboardingScreen1(),
+              onClick: () => changeScreen(context, const OnboardingScreen1(),
                   PageTransitionType.leftToRightWithFade, 300),
               ikon: Icons.arrow_back_ios_new_rounded,
               ikonClr: ColorTemplates.textClr,
@@ -55,7 +55,7 @@ class OnboardingScreen2 extends StatelessWidget {
                   height: 300.h,
                   width: 300.w,
                   child: LottieBuilder.asset(
-                    'assets/lotties/onboarding2.json',
+                    'assets/lotties/onboarding/onboarding2.json',
                   ),
                 ),
                 TextRich(

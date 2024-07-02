@@ -1,9 +1,7 @@
 import 'package:fitness_app/pages/AuthScreens/login.dart';
 import 'package:fitness_app/pages/AuthScreens/registeration.dart';
-import 'package:fitness_app/pages/onboardingScreens/screen3.dart';
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/widgets/buttonWithIcon.dart';
-import 'package:fitness_app/widgets/iconButton.dart';
 import 'package:fitness_app/widgets/navigator.dart';
 import 'package:fitness_app/widgets/text.dart';
 import 'package:fitness_app/widgets/textsRichforOnboarding.dart';
@@ -18,13 +16,6 @@ class OnboardingScreen4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconBttn(
-              onClick: () => changeScreen(context, const OnboardingScreen3(),
-                  PageTransitionType.leftToRightWithFade, 300),
-              ikon: Icons.arrow_back_ios_new_rounded,
-              ikonClr: ColorTemplates.textClr,
-              ikonSz: 20.w)),
       body: SafeArea(
           child: Center(
         child: Column(
@@ -43,10 +34,11 @@ class OnboardingScreen4 extends StatelessWidget {
             SizedBox(
                 height: 300.h,
                 width: 300.w,
-                child: LottieBuilder.asset('assets/lotties/new3.json')),
+                child: LottieBuilder.asset(
+                    'assets/lotties/onboarding/onboarding4.json')),
             Txt(
                 txt: 'Hello, WelCome!',
-                fontSz: 30.sp,
+                fontSz: 27.sp,
                 fontWt: FontWeight.bold,
                 txtClr: ColorTemplates.textClr),
             Padding(
@@ -74,7 +66,8 @@ class OnboardingScreen4 extends StatelessWidget {
                 iconClr: ColorTemplates.textClr,
                 iconSz: 20.w,
                 width: 10.w,
-                onClick: () => const SignInScreen()),
+                onClick: () => changeScreen(context, SignInScreen(),
+                    PageTransitionType.bottomToTop, 300)),
             SizedBox(
               height: 20.h,
             ),
@@ -92,7 +85,39 @@ class OnboardingScreen4 extends StatelessWidget {
                 iconClr: ColorTemplates.textClr,
                 iconSz: 20.w,
                 width: 10.w,
-                onClick: () => const SignUpScreen())
+                onClick: () => changeScreen(context, const SignUpScreen(),
+                    PageTransitionType.bottomToTop, 300)),
+            SizedBox(
+              height: 20.h,
+            ),
+            Divider(
+              indent: 20.w,
+              endIndent: 20.w,
+              thickness: 2.w,
+              color: ColorTemplates.textClr.withOpacity(.2),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Image.asset(
+                    'assets/icons/google.png',
+                    scale: 30.w,
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Image.asset(
+                    'assets/icons/linkedIn.png',
+                    scale: 17.w,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       )),
