@@ -8,3 +8,11 @@ final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
 final authStateProvider = StreamProvider<User?>((ref) {
   return ref.watch(firebaseAuthProvider).authStateChanges();
 });
+
+// class LoadingStateNotifier extends StateNotifier<bool> {
+//   LoadingStateNotifier() : super(false);
+
+//   void setLoading(bool isLoading) => state = isLoading;
+// }
+
+// final loadingProvider = StateProvider.autoDispose<bool>((ref) => false);

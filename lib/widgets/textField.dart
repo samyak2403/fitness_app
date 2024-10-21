@@ -13,9 +13,12 @@ class TxtField extends StatefulWidget {
   final IconData prefixikon;
   final Color prefixikonClr;
   final Color suffixikonClr;
-  final String txt;
-  final Color txtClr;
-  final FontWeight fontWt;
+  final String? txt;
+  final Color? txtClr;
+  final FontWeight? fontWt;
+  final String? hintTxt;
+  final Color? hintTxtClr;
+  final FontWeight? hintFontWt;
   final double focusedboarderrad;
   final Color focusedClr;
   final double focusedboarderwidth;
@@ -29,9 +32,9 @@ class TxtField extends StatefulWidget {
       required this.controllername,
       required this.prefixikon,
       required this.prefixikonClr,
-      required this.txt,
-      required this.txtClr,
-      required this.fontWt,
+      this.txt,
+      this.txtClr,
+      this.fontWt,
       required this.focusedboarderrad,
       required this.focusedClr,
       required this.focusedboarderwidth,
@@ -45,7 +48,10 @@ class TxtField extends StatefulWidget {
       required this.obscure,
       required this.visible,
       required this.suffixikonClr,
-      required this.keyboardType});
+      required this.keyboardType,
+      this.hintTxt,
+      this.hintTxtClr,
+      this.hintFontWt});
 
   @override
   State<TxtField> createState() => _TxtFieldState();
@@ -84,6 +90,9 @@ class _TxtFieldState extends State<TxtField> {
               ),
             ),
           ),
+          hintText: widget.hintTxt,
+          hintStyle: GoogleFonts.ubuntu(
+              color: widget.hintTxtClr, fontWeight: widget.hintFontWt),
           labelText: widget.txt,
           labelStyle: GoogleFonts.ubuntu(
               color: widget.txtClr, fontWeight: widget.fontWt),
