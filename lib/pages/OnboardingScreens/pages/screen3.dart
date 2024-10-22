@@ -42,7 +42,7 @@ class OnboardingScreen3 extends StatelessWidget {
                       TextSpan(
                         text: 'io',
                         style: GoogleFonts.ubuntu(
-                            color: const Color.fromRGBO(2, 240, 2, 10),
+                            color: const Color(0xFF01FBE2),
                             fontWeight: FontWeight.bold,
                             fontSize: 25.sp),
                       ),
@@ -64,7 +64,7 @@ class OnboardingScreen3 extends StatelessWidget {
                 ),
                 TextRich(
                   txt1: '"  ',
-                  txtClr1: ColorTemplates.buttonClr,
+                  txtClr1: const Color(0xFF01FBE2),
                   fontWt1: FontWeight.bold,
                   fontSZ1: 18.sp,
                   txt2:
@@ -73,7 +73,7 @@ class OnboardingScreen3 extends StatelessWidget {
                   fontWt2: FontWeight.bold,
                   fontSZ2: 18.sp,
                   txt3: '  "',
-                  txtClr3: ColorTemplates.buttonClr,
+                  txtClr3: const Color(0xFF01FBE2),
                   fontWt3: FontWeight.bold,
                   fontSZ3: 18.sp,
                 ),
@@ -91,7 +91,7 @@ class OnboardingScreen3 extends StatelessWidget {
                           300),
                       maxWidth: 100.w,
                       maxHeigth: 35.h,
-                      bgClr: ColorTemplates.buttonClr,
+                      bgClr: const Color(0xFF01FBE2),
                       elevationValue: 5.w,
                       mainaxisAlignment: MainAxisAlignment.center,
                       txt: 'next',

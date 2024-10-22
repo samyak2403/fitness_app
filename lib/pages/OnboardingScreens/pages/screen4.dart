@@ -1,6 +1,6 @@
 import 'package:fitness_app/pages/AuthScreens/pages/login.dart';
 import 'package:fitness_app/pages/AuthScreens/pages/registeration.dart';
-import 'package:fitness_app/pages/home.dart';
+import 'package:fitness_app/pages/homeScreen/pages/home.dart';
 import 'package:fitness_app/pages/AuthScreens/services/services.dart';
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/widgets/buttonWithIcon.dart';
@@ -11,6 +11,7 @@ import 'package:fitness_app/widgets/textsRichforOnboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -38,7 +39,7 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
               fontWt1: FontWeight.bold,
               fontSZ1: 25.sp,
               txt2: 'io',
-              txtClr2: ColorTemplates.buttonClr,
+              txtClr2: const Color(0xFF01FBE2),
               fontWt2: FontWeight.bold,
               fontSZ2: 25.sp,
             ),
@@ -72,7 +73,7 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
                 fontWt: FontWeight.bold,
                 fontSz: 18.sp,
                 ikon: Icons.email_outlined,
-                bgClr: ColorTemplates.buttonClr,
+                bgClr: const Color(0xFF01FBE2),
                 mainaxisAlignment: MainAxisAlignment.center,
                 txtClr: ColorTemplates.textClr,
                 iconClr: ColorTemplates.textClr,
@@ -92,7 +93,7 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
                 fontWt: FontWeight.bold,
                 fontSz: 18.sp,
                 ikon: Icons.list_alt_outlined,
-                bgClr: ColorTemplates.buttonClr,
+                bgClr: const Color(0xFF01FBE2),
                 mainaxisAlignment: MainAxisAlignment.center,
                 txtClr: ColorTemplates.textClr,
                 iconClr: ColorTemplates.textClr,
@@ -100,46 +101,48 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
                 width: 10.w,
                 onClick: () => changeScreen(context, const SignUpScreen(),
                     PageTransitionType.bottomToTop, 300)),
-            SizedBox(
-              height: 20.h,
-            ),
             Divider(
+              height: 30.h,
               indent: 20.w,
               endIndent: 20.w,
-              thickness: 2.w,
+              thickness: 1.w,
               color: ColorTemplates.textClr.withOpacity(.2),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    final user = await authSerivce.signInWithGoogle(context);
-                    if (user != null) {
-                      changeScreenRemoveUntil(context, HomeScreen(),
-                          PageTransitionType.rightToLeftWithFade, 300);
-                      SnackBarWidget.show(
-                          context, "You are Sign-in successfully");
-                    } else {
-                      SnackBarWidget.show(context, "Your Sign-In failed");
-                    }
-                  },
-                  child: Image.asset(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                maximumSize: Size(300.w, 30.h),
+                backgroundColor: const Color(0xFF01FBE2),
+                elevation: 5.w,
+              ),
+              onPressed: () async {
+                final user = await authSerivce.signInWithGoogle(context);
+                if (user != null) {
+                  changeScreenRemoveUntil(context, HomeScreen(),
+                      PageTransitionType.rightToLeftWithFade, 300);
+                  SnackBarWidget.show(context, "You are Sign-in successfully");
+                } else {
+                  SnackBarWidget.show(context, "Your Sign-In failed");
+                }
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sign in with ',
+                    style: GoogleFonts.ubuntu(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Image.asset(
                     'assets/icons/google.png',
                     scale: 30.w,
                   ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    'assets/icons/linkedIn.png',
-                    scale: 17.w,
-                  ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

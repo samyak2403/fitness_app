@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_app/pages/home.dart';
+import 'package:fitness_app/pages/homeScreen/pages/home.dart';
 import 'package:fitness_app/pages/OnboardingScreens/pages/screen4.dart';
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/widgets/buttonWithIcon.dart';
@@ -81,14 +81,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fontSz: 25.sp,
                 fontWt: FontWeight.bold,
                 txtClr: ColorTemplates.textClr),
-            backgroundColor: ColorTemplates.buttonClr,
+            backgroundColor: const Color(0xFF01FBE2),
             leading: IconBttn(
                 onClick: () => changeScreen(context, const OnboardingScreen4(),
                     PageTransitionType.leftToRightWithFade, 300),
                 ikon: Icons.arrow_back_ios_new_rounded,
                 ikonClr: ColorTemplates.textClr,
                 ikonSz: 20.w)),
-        backgroundColor: ColorTemplates.buttonClr,
+        backgroundColor: const Color(0xFF01FBE2),
         body: SafeArea(
             child: Center(
           child: Column(
@@ -120,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           txtClr: ColorTemplates.textClr,
                           fontWt: FontWeight.w500,
                           focusedboarderrad: 10.r,
-                          focusedClr: ColorTemplates.buttonClr,
+                          focusedClr: const Color(0xFF01FBE2),
                           focusedboarderwidth: 2.w,
                           enabledboarderrad: 10.r,
                           enabledClr: ColorTemplates.textClr,
@@ -142,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           txtClr: ColorTemplates.textClr,
                           fontWt: FontWeight.w500,
                           focusedboarderrad: 10.r,
-                          focusedClr: ColorTemplates.buttonClr,
+                          focusedClr: const Color(0xFF01FBE2),
                           focusedboarderwidth: 2.w,
                           enabledboarderrad: 10.r,
                           enabledClr: ColorTemplates.textClr,
@@ -169,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           txtClr: ColorTemplates.textClr,
                           fontWt: FontWeight.w500,
                           focusedboarderrad: 10.r,
-                          focusedClr: ColorTemplates.buttonClr,
+                          focusedClr: const Color(0xFF01FBE2),
                           focusedboarderwidth: 2.w,
                           enabledboarderrad: 10.r,
                           enabledClr: ColorTemplates.textClr,
@@ -191,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             txtClr: ColorTemplates.textClr,
                             fontWt: FontWeight.w500,
                             focusedboarderrad: 10.r,
-                            focusedClr: ColorTemplates.buttonClr,
+                            focusedClr: const Color(0xFF01FBE2),
                             focusedboarderwidth: 2.w,
                             enabledboarderrad: 10.r,
                             enabledClr: ColorTemplates.textClr,
@@ -212,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             txtClr: ColorTemplates.textClr,
                             fontWt: FontWeight.w500,
                             focusedboarderrad: 10.r,
-                            focusedClr: ColorTemplates.buttonClr,
+                            focusedClr: const Color(0xFF01FBE2),
                             focusedboarderwidth: 2.w,
                             enabledboarderrad: 10.r,
                             enabledClr: ColorTemplates.textClr,
@@ -232,7 +232,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontWt: FontWeight.bold,
                             fontSz: 20.w,
                             ikon: Icons.arrow_forward_ios_outlined,
-                            bgClr: ColorTemplates.buttonClr,
+                            bgClr: const Color(0xFF01FBE2),
                             mainaxisAlignment: MainAxisAlignment.center,
                             txtClr: ColorTemplates.textClr,
                             iconClr: ColorTemplates.textClr,
@@ -248,7 +248,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fontWt1: FontWeight.bold,
                           fontSZ1: 20.sp,
                           txt2: 'io',
-                          txtClr2: ColorTemplates.buttonClr,
+                          txtClr2: const Color(0xFF01FBE2),
                           fontWt2: FontWeight.bold,
                           fontSZ2: 20.sp,
                         ),
