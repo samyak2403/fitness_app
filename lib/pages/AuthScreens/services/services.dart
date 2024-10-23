@@ -17,52 +17,12 @@ class AuthService {
 
   FirebaseAuth get _auth => _ref.read(firebaseAuthProvider);
 
-  // void signIn() async {
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailController.text,
-  //       password: passwordController.text,
-  //     );
-
-  //     User? user = FirebaseAuth.instance.currentUser;
-
-  //     if (user != null && !user.emailVerified) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('Please verify your email to log in.'))
-  //       );
-  //       await FirebaseAuth.instance.signOut(); // Force logout if not verified
-  //     } else {
-  //       // Proceed with login, user is verified
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to home screen
-  //       );
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message.toString())));
-  //   }
-  // }
-
-  // Future<User?> signUp(String email, String password) async {
-  //   try {
-  //     UserCredential userCredential = await _auth
-  //         .createUserWithEmailAndPassword(email: email, password: password);
-  //     return userCredential.user;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
-
   Future<void> forgotPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
       rethrow;
     }
-  }
-
-  Future<void> signOut() async {
-    await _auth.signOut();
   }
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -115,10 +75,5 @@ class AuthService {
         // You can add more fields here if necessary
       });
     }
-  }
-
-  Future<void> googleSignOut() async {
-    await _auth.signOut();
-    await _googleSignIn.signOut();
   }
 }

@@ -33,7 +33,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _signUp() async {
     try {
-      // Sign up the user using Firebase Authentication
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
@@ -74,23 +73,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            title: Txt(
-                txt: 'Sign Up',
-                fontSz: 25.sp,
-                fontWt: FontWeight.bold,
-                txtClr: ColorTemplates.textClr),
-            backgroundColor: const Color(0xFF01FBE2),
-            leading: IconBttn(
-                onClick: () => changeScreen(context, const OnboardingScreen4(),
-                    PageTransitionType.leftToRightWithFade, 300),
-                ikon: Icons.arrow_back_ios_new_rounded,
-                ikonClr: ColorTemplates.textClr,
-                ikonSz: 20.w)),
-        backgroundColor: const Color(0xFF01FBE2),
-        body: SafeArea(
-            child: Center(
+      appBar: AppBar(
+          centerTitle: true,
+          title: Txt(
+              txt: 'Sign Up',
+              fontSz: 25.sp,
+              fontWt: FontWeight.bold,
+              txtClr: ColorTemplates.textClr),
+          backgroundColor: const Color(0xFF01FBE2),
+          leading: IconBttn(
+              onClick: () => changeScreen(context, const OnboardingScreen4(),
+                  PageTransitionType.leftToRightWithFade, 300),
+              ikon: Icons.arrow_back_ios_new_rounded,
+              ikonClr: ColorTemplates.textClr,
+              ikonSz: 20.w)),
+      backgroundColor: const Color(0xFF01FBE2),
+      body: SafeArea(
+        child: Center(
           child: Column(
             children: [
               SizedBox(
@@ -259,6 +258,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ],
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

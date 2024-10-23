@@ -16,6 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void _signIn() async {
+  Future<void> _signIn() async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -36,25 +37,31 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
       User? user = FirebaseAuth.instance.currentUser;
 
-      if (user != null && !user.emailVerified) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Please verify your email to log in.')));
-        await FirebaseAuth.instance.signOut();
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ),
-        );
+      if (user != null) {
+        final prefs = await SharedPreferences.getInstance();
+        bool isEmailVerified = prefs.getBool('isEmailVerified') ?? false;
+
+        if (!isEmailVerified && !user.emailVerified) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Please verify your email to log in.')));
+          await FirebaseAuth.instance.signOut();
+        } else {
+          if (user.emailVerified) {
+            await prefs.setBool('isEmailVerified', true);
+          }
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        }
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.message.toString())));
     }
-    // finally {
-    //   ref.read(loadingProvider.notifier).state = false;
-    // }
   }
 
   @override

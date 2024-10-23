@@ -27,6 +27,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:ui'; // For BackdropFilter
 
@@ -65,7 +66,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           overallHealthPercentage =
               userDoc['OverallHealthPercentage']?['value']?.toDouble();
           log(overallHealthPercentage.toString());
-          _isLoading = false;
         });
       }
     } catch (e) {
@@ -83,6 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (userinfo.exists) {
         setState(() {
           firstname = userinfo['firstname'];
+          _isLoading = false;
         });
       }
     } catch (e) {
@@ -91,25 +92,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Map<String, double> _calculateHealthPercentages() {
-    // Define max values for normalization
-    const double maxBmi = 25.0; // Maximum healthy BMI
-    const double maxBmr = 100.0; // Maximum resting heart rate
-    const double maxHrc = 180.0; // Maximum heart rate during exercise
+    const double maxBmi = 25.0;
+    const double maxBmr = 100.0;
+    const double maxHrc = 180.0;
 
-    // Calculate normalized percentages
     double bmiPercentage = ((bmi ?? 0) / maxBmi) * 100;
     double bmrPercentage = ((bmr ?? 0) / maxBmr) * 100;
     double hrcPercentage = ((hrc ?? 0) / maxHrc) * 100;
 
-    // Ensure values do not exceed 100
     bmiPercentage = bmiPercentage.clamp(0, 100);
     bmrPercentage = bmrPercentage.clamp(0, 100);
     hrcPercentage = hrcPercentage.clamp(0, 100);
 
-    // Calculate total of normalized percentages
     double total = bmiPercentage + bmrPercentage + hrcPercentage;
 
-    // Normalize them if the total exceeds 100
     if (total > 100) {
       bmiPercentage = (bmiPercentage / total) * 100;
       bmrPercentage = (bmrPercentage / total) * 100;
@@ -239,8 +235,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  void signOut() async {
+    User? user = _auth.currentUser;
+
+    if (user != null) {
+      for (UserInfo provider in user.providerData) {
+        if (provider.providerId == 'google.com') {
+          await _googleSignIn.signOut();
+          break;
+        } else {
+          await _auth.signOut();
+        }
+      }
+    }
   }
 
   @override
