@@ -50,7 +50,6 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
 
   Future<Map<String, List<String>>> fetchImageUrls() async {
     try {
-      // Create a map to hold image URLs for both folders
       Map<String, List<String>> imageUrlsMap = {
         widget.workoutImagesFolder: [],
         'workouts_photo': []
@@ -65,7 +64,6 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
         imageUrlsMap[widget.workoutImagesFolder]!.add(url);
       }
 
-      // Fetch URLs from Workouts_Photo folder
       ListResult workoutsPhotoResult =
           await FirebaseStorage.instance.ref('workouts_photo').listAll();
 
@@ -77,7 +75,6 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
       return imageUrlsMap;
     } catch (e) {
       log("Error fetching images: $e");
-      // Optionally rethrow to handle higher up
       throw e;
     }
   }
