@@ -2,15 +2,10 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_app/pages/AuthScreens/services/services.dart';
 import 'package:fitness_app/pages/HealthCalculators/pages/HealthCalculators.dart';
 import 'package:fitness_app/pages/NutritionPlans/pages/PersonelDietPlans.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/DifferentWorkouts/CoreCrusherList.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/DifferentWorkouts/FullBodyHiit.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/DifferentWorkouts/UpperBodyStrength.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/quickWorkoutDetails.dart';
+import 'package:fitness_app/pages/QuickWorkouts/pages/QuickWorkoutTypes.dart';
 import 'package:fitness_app/pages/GeneratedWorkOuts/pages/AiGeneratedworkout.dart';
-import 'package:fitness_app/pages/homeScreen/services/services.dart';
 import 'package:fitness_app/pages/homeScreen/widgets/CalculatorValues.dart';
 import 'package:fitness_app/pages/homeScreen/widgets/animatedText.dart';
 import 'package:fitness_app/pages/homeScreen/widgets/calculatorReadings.dart';
@@ -20,7 +15,6 @@ import 'package:fitness_app/pages/homeScreen/widgets/card.dart';
 import 'package:fitness_app/widgets/navigator.dart';
 import 'package:fitness_app/widgets/text.dart';
 import 'package:fitness_app/widgets/textsRichforOnboarding.dart';
-import 'package:fitness_app/widgets/workoutList.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -123,17 +117,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     };
   }
 
-  List<String> type = [
-    'Core Crusher',
-    'Full Body Workout',
-    'Upper Body Strength'
+  Map<String, Map<String, String>> quickworkoutInfo = {
+    'Core Crusher': {
+      'duration': '15 min',
+      'level': 'Beginner',
+      'Excercises': '11',
+      'calories': '70-80',
+      'folder': 'core_crusher'
+    },
+    'Full Body Workout': {
+      'duration': '20 min',
+      'level': 'Intermediate',
+      'Excercises': '15',
+      'calories': '120-130',
+      'folder': 'full_body_hiit'
+    },
+    'Upper Body Strength': {
+      'duration': '30 min',
+      'level': 'Advanced',
+      'Excercises': '20',
+      'calories': '150-180',
+      'folder': 'upper_body'
+    },
+  };
+
+  List<String> collectionName = [
+    'Core_Cusher',
+    'Full_Body_HIIT',
+    'Upper_Body_Strength'
   ];
-  List<String> time = [
-    '15 min • Beginner',
-    '20 min • Intermediate',
-    '30 min • Advanced'
-  ];
-  List<Widget> pages = [CoreCrusherList(), FullBodyHiit(), UpperBodyStrength()];
+  // List<String> time = [
+  //   '15 min • Beginner',
+  //   '20 min • Intermediate',
+  //   '30 min • Advanced'
+  // ];
 
   void _showQuickWorkoutOptions(BuildContext context) {
     showModalBottomSheet(
@@ -154,84 +171,89 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   'Choose a Quick Workout',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.ubuntu(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800),
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 10.h,
-              ),
-              SizedBox(
-                child: ListView.builder(
-                  itemCount:
-                      type.length, // Ensure item count matches the list length
-                  shrinkWrap: true, // Add this to prevent infinite height error
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
-                              )),
-                          child: ListTile(
-                            title: Text(
-                              type[index],
-                              style: GoogleFonts.ubuntu(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            subtitle: Text(
-                              time[index],
-                              style: GoogleFonts.ubuntu(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            trailing: const Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => pages[index]));
-                            },
+              SizedBox(height: 10.h),
+              ListView.builder(
+                itemCount: quickworkoutInfo.length,
+                shrinkWrap: true, // Important for nested ListViews in a Column
+                itemBuilder: (context, index) {
+                  // Get the workout name (outer map key) at the current index
+                  String workoutName = quickworkoutInfo.keys.elementAt(index);
+                  // Get the nested map (duration, level, exercises)
+                  Map<String, String> workoutDetails =
+                      quickworkoutInfo[workoutName]!;
+
+                  // Extract the duration, level, and exercises from the nested map
+                  String duration =
+                      workoutDetails['duration']!; // e.g., '15 min'
+                  String level = workoutDetails['level']!; // e.g., 'Beginner'
+                  String exercises =
+                      workoutDetails['Excercises']!; // e.g., '11'
+                  String calories = workoutDetails['calories']!;
+                  String folder = workoutDetails['folder']!;
+
+                  return Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.5),
                           ),
                         ),
-                        SizedBox(
-                          height: 10.h,
+                        child: ListTile(
+                          title: Text(
+                            workoutName, // Display workout name
+                            style: GoogleFonts.ubuntu(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '$duration | $level | $exercises Exercises', // Display duration, level, and exercises
+                            style: GoogleFonts.ubuntu(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.chevron_right,
+                            color: Colors.white,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuickWorkoutTypes(
+                                  doc: collectionName[
+                                      index], // Assuming you have collectionName
+                                  workoutName: workoutName,
+                                  level: level,
+                                  duration: duration,
+                                  exercises: exercises, calories: calories,
+                                  workoutImagesFolder: folder,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    );
-                  },
-                ),
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+                  );
+                },
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  void _startQuickWorkout(BuildContext context, Map<String, dynamic> workout) {
-    Navigator.pop(context); // Close the bottom sheet
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => QuickWorkoutDetailScreen(
-          workoutName: workout['name'],
-          gifUrl: workout['gifUrl'],
-          description: workout['description'],
-          exercises: List<String>.from(workout['exercises']),
-          duration: workout['duration'],
-          difficulty: workout['difficulty'],
-        ),
-      ),
     );
   }
 
@@ -276,7 +298,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       backgroundColor: ColorTemplates.primary,
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: EdgeInsets.all(20.w),
               child: SingleChildScrollView(

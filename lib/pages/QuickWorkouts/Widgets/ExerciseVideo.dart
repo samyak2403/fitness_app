@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/DifferentWorkouts/CoreCrusherList.dart';
-import 'package:fitness_app/pages/QuickWorkouts/pages/timeline.dart';
+import 'package:fitness_app/pages/QuickWorkouts/pages/QuickWorkoutTypes.dart';
+import 'package:fitness_app/pages/QuickWorkouts/Widgets/timeline.dart';
 import 'package:fitness_app/widgets/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,11 +110,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           IconButton(
-                              onPressed: () => changeScreen(
-                                  context,
-                                  const CoreCrusherList(),
-                                  PageTransitionType.rightToLeft,
-                                  300),
+                              onPressed: () => Navigator.pop(context),
                               icon: const Icon(
                                 Icons.close_outlined,
                                 color: Colors.black45,
