@@ -75,13 +75,31 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
       return imageUrlsMap;
     } catch (e) {
       log("Error fetching images: $e");
-      throw e;
+      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            size: 15.w,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          widget.workoutName,
+          style: GoogleFonts.ubuntu(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -89,15 +107,6 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.workoutName,
-                style: GoogleFonts.ubuntu(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              SizedBox(height: 10.h),
               Text(
                 "${widget.exercises} Exercises | ${widget.duration} | ${widget.calories} Calories Burn",
                 style: GoogleFonts.ubuntu(
@@ -153,8 +162,7 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
                             height: 100.h,
                             child: const Center(
                                 child: CircularProgressIndicator(
-                              color: Colors.black,
-                            ))));
+                                    color: Color(0xFF01FBE2)))));
                   }
                   if (snapshot.hasError) {
                     return const Center(child: Text('Error loading images'));
@@ -212,9 +220,8 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
+                        child:
+                            CircularProgressIndicator(color: Color(0xFF01FBE2)),
                       );
                     }
                     if (snapshot.hasError) {
@@ -244,7 +251,7 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
                                   context,
                                   ExerciseScreen(index: key),
                                   PageTransitionType.leftToRight,
-                                  300),
+                                  200),
                               child: Container(
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
@@ -271,10 +278,9 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
                                                       'workouts_photo'] ==
                                                   null) {
                                             return const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                              color: Colors.black,
-                                            )); // Handle loading state
+                                                child: CircularProgressIndicator(
+                                                    color: Color(
+                                                        0xFF01FBE2))); // Handle loading state
                                           }
                                           List<String> workoutImageUrls =
                                               snapshot.data!['workouts_photo']!;

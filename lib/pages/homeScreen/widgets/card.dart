@@ -38,8 +38,8 @@ class Cards extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
             child: Image.asset(
               mainImage,
-              height: 200,
-              width: 370,
+              height: 170.h,
+              width: 300.w,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -47,7 +47,7 @@ class Cards extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
-                  height: 145.h,
+                  height: 170.h,
                   width: 300.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.r),
@@ -57,7 +57,7 @@ class Cards extends StatelessWidget {
                 Positioned(
                   top: 0,
                   child: Container(
-                    height: 80.h,
+                    height: 100.h,
                     width: 300.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
@@ -104,8 +104,8 @@ class Cards extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 30,
-                  left: 30,
+                  bottom: 20,
+                  left: 20,
                   child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.black),

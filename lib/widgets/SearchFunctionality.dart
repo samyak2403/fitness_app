@@ -1,9 +1,11 @@
 import 'package:fitness_app/pages/GeneratedWorkOuts/pages/AiGeneratedworkout.dart';
 import 'package:fitness_app/pages/HealthCalculators/pages/HealthCalculators.dart';
 import 'package:fitness_app/pages/NutritionPlans/pages/PersonelDietPlans.dart';
+import 'package:fitness_app/widgets/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SearchScreen extends StatefulWidget {
   final String email;
@@ -20,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
     'Calculator',
     'Nutrition',
   ];
-  List<String> _filteredCategories = []; // Start with an empty list
+  List<String> _filteredCategories = [];
 
   @override
   void initState() {
@@ -31,9 +33,8 @@ class _SearchScreenState extends State<SearchScreen> {
   void _filterCategories(String query) {
     setState(() {
       if (query.isEmpty) {
-        _filteredCategories = []; // Clear suggestions if the input is empty
+        _filteredCategories = [];
       } else {
-        // Filter categories based on user input
         _filteredCategories = _categories
             .where((category) =>
                 category.toLowerCase().contains(query.toLowerCase()))
@@ -46,25 +47,22 @@ class _SearchScreenState extends State<SearchScreen> {
   void _navigateToPage(String category) {
     switch (category) {
       case 'Generate Workouts':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GenerateWorkoutPlanScreen()),
-        );
+        changeScreen(context, GenerateWorkoutPlanScreen(),
+            PageTransitionType.leftToRight, 200);
         break;
       case 'Calculator':
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HealthCalculatorsScreen(
-                    userEmail: widget.email,
-                  )),
-        );
+        changeScreen(
+            context,
+            HealthCalculatorsScreen(
+              userEmail: widget.email,
+            ),
+            PageTransitionType.leftToRight,
+            200);
+
         break;
       case 'Nutrition':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GenerateDietPlanScreen()),
-        );
+        changeScreen(context, GenerateDietPlanScreen(),
+            PageTransitionType.leftToRight, 200);
         break;
       default:
         break;
@@ -74,11 +72,14 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 16.w, left: 16.w, top: 16.h),
+      padding: EdgeInsets.only(
+        right: 16.w,
+        left: 16.w,
+      ),
       child: Column(
         children: [
           Container(
-            height: 35.h,
+            height: 40.h,
             width: 350.w,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFF08EBE2)),
@@ -94,8 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   fontWeight: FontWeight.w500),
               decoration: InputDecoration(
                 hintText: 'Search...',
-                hintStyle: const TextStyle(
-                    color: Color(0xFF08EBE2)), // Hint text color
+                hintStyle: const TextStyle(color: Color(0xFF08EBE2)),
                 prefixIcon: const Icon(
                   Icons.search_outlined,
                   color: Color(0xFF08EBE2),
@@ -109,51 +109,59 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          if (_searchController.text.isNotEmpty) ...[
-            SizedBox(
-              height: 50.h,
-              child: _filteredCategories.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: _filteredCategories.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () =>
-                              _navigateToPage(_filteredCategories[index]),
-                          child: Padding(
-                            padding: EdgeInsets.all(5.w),
-                            child: ListTile(
-                              leading: _filteredCategories[index] ==
-                                      "Generate Workouts"
-                                  ? Image.asset(
-                                      'assets/icons/dumbbell.png',
-                                      scale: 20.w,
-                                    )
-                                  : _filteredCategories[index] == "Calculator"
-                                      ? Image.asset(
-                                          'assets/icons/calculator.png',
-                                          scale: 20.w,
-                                        )
-                                      : Image.asset(
-                                          'assets/icons/plan.png',
-                                          scale: 20.w,
-                                        ),
-                              title: Text(
-                                _filteredCategories[index],
-                                style: GoogleFonts.ubuntu(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                      'No results found',
-                      style: GoogleFonts.ubuntu(
-                          color: Colors.black, fontWeight: FontWeight.w500),
-                    )),
+          SizedBox(height: 10.h), // Add some spacing
+          if (_filteredCategories.isNotEmpty) ...[
+            Column(
+              children: _filteredCategories.map((category) {
+                return InkWell(
+                  onTap: () => _navigateToPage(category),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: ListTile(
+                        leading: category == "Generate Workouts"
+                            ? Image.asset(
+                                'assets/icons/dumbbell.png',
+                                scale: 20.w,
+                              )
+                            : category == "Calculator"
+                                ? Image.asset(
+                                    'assets/icons/calculator.png',
+                                    scale: 20.w,
+                                  )
+                                : Image.asset(
+                                    'assets/icons/plan.png',
+                                    scale: 20.w,
+                                  ),
+                        trailing: const ClipOval(
+                            child: Icon(
+                          Icons.arrow_forward_ios_sharp,
+                          size: 15,
+                        )),
+                        title: Text(
+                          category,
+                          style: GoogleFonts.ubuntu(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ] else if (_searchController.text.isNotEmpty) ...[
+            Padding(
+              padding: EdgeInsets.all(8.w),
+              child: Text(
+                'No results found',
+                style: GoogleFonts.ubuntu(
+                    color: Colors.black, fontWeight: FontWeight.w500),
+              ),
             ),
           ],
         ],

@@ -95,7 +95,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: _isLoading || !_isVideoControllerInitialized()
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(
+                child: CircularProgressIndicator(color: Color(0xFF01FBE2)))
             : SafeArea(
                 child: FutureBuilder(
                   future: getWorkout(),
@@ -106,100 +107,103 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     var val = data[widget.index];
                     return Padding(
                       padding: EdgeInsets.all(20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          IconButton(
-                              onPressed: () => Navigator.pop(context),
-                              icon: const Icon(
-                                Icons.close_outlined,
-                                color: Colors.black45,
-                                size: 30,
-                              )),
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(10.w),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20.r),
-                                child: AspectRatio(
-                                  aspectRatio:
-                                      _videoPlayerController!.value.aspectRatio,
-                                  child: VideoPlayer(_videoPlayerController!),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: const Icon(
+                                  Icons.close_outlined,
+                                  color: Colors.black45,
+                                  size: 30,
+                                )),
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(10.w),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  child: AspectRatio(
+                                    aspectRatio: _videoPlayerController!
+                                        .value.aspectRatio,
+                                    child: VideoPlayer(_videoPlayerController!),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Text(
-                            val['name'],
-                            style: GoogleFonts.ubuntu(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800),
-                          ),
-                          Text(
-                            "${val['duration']} | ${val['level']} | ${val['calories']} Calories Burn",
-                            style: GoogleFonts.ubuntu(
-                                color: const Color(0xFF08EBE2),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Text(
-                            'Description :',
-                            style: GoogleFonts.ubuntu(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text(
-                            val['description'],
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.ubuntu(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          ListTile(
-                            leading: Text(
-                              'How To Do It',
+                            Text(
+                              val['name'],
                               style: GoogleFonts.ubuntu(
                                   color: Colors.black,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800),
                             ),
-                            trailing: Text(
-                              "${val['steps'].length.toString()} Steps",
+                            Text(
+                              "${val['duration']} | ${val['level']} | ${val['calories']} Calories Burn",
                               style: GoogleFonts.ubuntu(
-                                  color: Colors.black45,
-                                  fontSize: 15,
+                                  color: const Color(0xFF08EBE2),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            Text(
+                              'Description :',
+                              style: GoogleFonts.ubuntu(
+                                  color: Colors.black,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w800),
                             ),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: val['steps'].length,
-                              itemBuilder: (context, index) {
-                                return TimeLineItems(
-                                    isFirst: (index + 1) == 1 ? true : false,
-                                    islast: (index + 1) == val['steps'].length
-                                        ? true
-                                        : false,
-                                    title: val['steps'][(index + 1).toString()]
-                                        ['title'],
-                                    title2: val['steps'][(index + 1).toString()]
-                                        ['actions']);
-                              },
+                            SizedBox(
+                              height: 10.h,
                             ),
-                          )
-                        ],
+                            Text(
+                              val['description'],
+                              textAlign: TextAlign.start,
+                              style: GoogleFonts.ubuntu(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            ListTile(
+                              leading: Text(
+                                'How To Do It',
+                                style: GoogleFonts.ubuntu(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              trailing: Text(
+                                "${val['steps'].length.toString()} Steps",
+                                style: GoogleFonts.ubuntu(
+                                    color: Colors.black45,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 500.h,
+                              child: ListView.builder(
+                                itemCount: val['steps'].length,
+                                itemBuilder: (context, index) {
+                                  return TimeLineItems(
+                                      isFirst: (index + 1) == 1 ? true : false,
+                                      islast: (index + 1) == val['steps'].length
+                                          ? true
+                                          : false,
+                                      title: val['steps']
+                                          [(index + 1).toString()]['title'],
+                                      title2: val['steps']
+                                          [(index + 1).toString()]['actions']);
+                                },
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },

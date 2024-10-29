@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ElevatedIconBttn extends StatelessWidget {
-  final double maxWidth;
-  final double maxHeigth;
+  final double minWidth;
+  final double minHeigth;
   final double width;
   final Color bgClr;
   final Color txtClr;
@@ -19,8 +19,8 @@ class ElevatedIconBttn extends StatelessWidget {
   // final bool? isLoading;
   ElevatedIconBttn({
     super.key,
-    required this.maxWidth,
-    required this.maxHeigth,
+    required this.minWidth,
+    required this.minHeigth,
     required this.elevationValue,
     required this.txt,
     required this.fontWt,
@@ -55,14 +55,14 @@ class ElevatedIconBttn extends StatelessWidget {
         //             ]),
         //         child: const Center(
         //             child: CircularProgressIndicator(
-        //           backgroundColor: ColorTemplates.primary,
-        //           color: ColorTemplates.textClr,
+        //           color:
+        // Color(0xFF01FBE2)
         //         )),
         //       )
         //     :
         ElevatedButton(
       style: ElevatedButton.styleFrom(
-        maximumSize: Size(maxWidth, maxHeigth),
+        minimumSize: Size(minWidth, minHeigth),
         backgroundColor: bgClr,
         elevation: elevationValue,
       ),

@@ -20,7 +20,7 @@ class OnboardingScreen2 extends StatelessWidget {
       appBar: AppBar(
           leading: IconBttn(
               onClick: () => changeScreen(context, const OnboardingScreen1(),
-                  PageTransitionType.leftToRightWithFade, 300),
+                  PageTransitionType.leftToRightWithFade, 200),
               ikon: Icons.arrow_back_ios_new_rounded,
               ikonClr: ColorTemplates.textClr,
               ikonSz: 20.w)),
@@ -84,9 +84,9 @@ class OnboardingScreen2 extends StatelessWidget {
                           context,
                           const OnboardingScreen3(),
                           PageTransitionType.rightToLeftWithFade,
-                          300),
-                      maxWidth: 100.w,
-                      maxHeigth: 35.h,
+                          200),
+                      minWidth: 100.w,
+                      minHeigth: 35.h,
                       bgClr: const Color(0xFF01FBE2),
                       elevationValue: 5.w,
                       mainaxisAlignment: MainAxisAlignment.center,

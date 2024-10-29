@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/pages/HealthCalculators/pages/HealthCalculators.dart';
 import 'package:fitness_app/pages/NutritionPlans/pages/PersonelDietPlans.dart';
+import 'package:fitness_app/pages/OnboardingScreens/pages/screen1.dart';
 import 'package:fitness_app/pages/QuickWorkouts/pages/QuickWorkoutTypes.dart';
 import 'package:fitness_app/pages/GeneratedWorkOuts/pages/AiGeneratedworkout.dart';
 import 'package:fitness_app/pages/homeScreen/widgets/CalculatorValues.dart';
@@ -228,10 +229,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             color: Colors.white,
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => QuickWorkoutTypes(
+                            changeScreen(
+                                context,
+                                QuickWorkoutTypes(
                                   doc: collectionName[
                                       index], // Assuming you have collectionName
                                   workoutName: workoutName,
@@ -240,8 +240,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   exercises: exercises, calories: calories,
                                   workoutImagesFolder: folder,
                                 ),
-                              ),
-                            );
+                                PageTransitionType.bottomToTop,
+                                200);
                           },
                         ),
                       ),
@@ -275,6 +275,66 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
   }
 
+  void _showSignOutConfirmationDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Confirm Logout',
+              style: GoogleFonts.ubuntu(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            content: Text(
+              'Are you sure you want to log out?',
+              style: GoogleFonts.ubuntu(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF01FBE2)),
+                onPressed: () {
+                  Navigator.of(context)
+                      .pop(); // Close the dialog without logging out
+                },
+                child: Text(
+                  'Cancel',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF01FBE2)),
+                child: Text(
+                  'Log out',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onPressed: () {
+                  signOut();
+                  changeScreenRemoveUntil(context, OnboardingScreen1(),
+                      PageTransitionType.leftToRight, 200);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     Map<String, double> healthPercentages = _calculateHealthPercentages();
@@ -298,7 +358,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       backgroundColor: ColorTemplates.primary,
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(color: Color(0xFF01FBE2)))
           : Padding(
               padding: EdgeInsets.all(20.w),
               child: SingleChildScrollView(
@@ -336,11 +397,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       ),
                                     ),
                                     Positioned(
-                                        bottom: 0,
-                                        child: Image.asset(
-                                          'assets/images/design.png',
-                                          height: 80,
-                                        )),
+                                      bottom: 0,
+                                      child: Image.asset(
+                                        'assets/images/design.png',
+                                        height: 80,
+                                      ),
+                                    ),
                                     Padding(
                                       padding: EdgeInsets.all(10.w),
                                       child: Row(
@@ -372,27 +434,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ],
                           ),
                           Positioned(
-                              top: 20,
-                              child: InkWell(
-                                onTap: () => signOut(),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black26),
-                                      borderRadius:
-                                          BorderRadius.circular(30.r)),
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      'assets/images/Setting.png',
-                                      height: 50,
+                            top: 30,
+                            child: InkWell(
+                              onTap: () =>
+                                  _showSignOutConfirmationDialog(context),
+                              child: Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: [
+                                    const Txt(
+                                      txt: 'Log-out',
+                                      fontSz: 20,
+                                      fontWt: FontWeight.bold,
+                                      txtClr: Colors.black,
                                     ),
-                                  ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Icon(Icons.logout_outlined)
+                                  ],
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
                           Positioned(
+                            bottom: 20.h,
                             right: -15.w,
                             child: SizedBox(
-                              height: 300,
-                              width: 250,
+                              height: 200.h,
+                              width: 200.w,
                               child: Image.asset(
                                 'assets/images/model.png',
                               ),
@@ -519,7 +589,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 context,
                                 HealthCalculatorsScreen(userEmail: email),
                                 PageTransitionType.leftToRightWithFade,
-                                300),
+                                200),
                             bmi: bmi!,
                             bmr: bmr!,
                             hrc: hrc!)
@@ -549,11 +619,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 'Need a quick workout? Try our Pre-mode workout plans.',
                             onClick: () => _showQuickWorkoutOptions(context),
                             bttnText: 'Start Workout',
-                            modelImage: 'assets/images/model1.png',
-                            height: 200.h,
-                            width: 200.w,
-                            left: 140.w,
-                            bottom: 0.h,
+                            modelImage: 'assets/images/girl.png',
+                            height: 160.h,
+                            width: 160.w,
+                            left: 130.w,
+                            bottom: 40.h,
                           ),
                           Cards(
                             mainImage: 'assets/images/workout.jpg',
@@ -564,13 +634,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 context,
                                 const GenerateWorkoutPlanScreen(),
                                 PageTransitionType.leftToRightWithFade,
-                                300),
+                                200),
                             bttnText: 'Start to Generate',
                             modelImage: 'assets/images/workout2.png',
                             height: 210.h,
                             width: 90.w,
                             left: 200.w,
-                            bottom: 0.h,
+                            bottom: 20.h,
                           ),
                           Cards(
                             mainImage: 'assets/images/workout.jpg',
@@ -581,13 +651,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 context,
                                 const GenerateDietPlanScreen(),
                                 PageTransitionType.leftToRightWithFade,
-                                300),
+                                200),
                             bttnText: 'Get Diet Plan',
-                            modelImage: 'assets/images/workout3.png',
-                            height: 150.h,
-                            width: 150.w,
+                            modelImage: 'assets/images/model.png',
+                            height: 140.h,
+                            width: 140.w,
                             left: 150.w,
-                            bottom: 40,
+                            bottom: 70.h,
                           ),
                           Cards(
                             mainImage: 'assets/images/workout1.jpg',
@@ -600,13 +670,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   userEmail: email,
                                 ),
                                 PageTransitionType.leftToRightWithFade,
-                                300),
+                                200),
                             bttnText: 'Calculate health',
                             modelImage: 'assets/images/workout3.png',
                             height: 150.h,
                             width: 150.w,
                             left: 150.w,
-                            bottom: 40,
+                            bottom: 50.h,
                           )
                         ],
                       ),

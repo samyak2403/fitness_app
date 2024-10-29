@@ -1,6 +1,12 @@
+import 'package:fitness_app/pages/GeneratedWorkOuts/pages/AiWokoutsPage.dart';
+import 'package:fitness_app/widgets/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
+
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GenerateWorkoutPlanScreen extends StatefulWidget {
   const GenerateWorkoutPlanScreen({Key? key}) : super(key: key);
@@ -34,136 +40,270 @@ class _GenerateWorkoutPlanScreenState extends State<GenerateWorkoutPlanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Generate Workout Plan'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            size: 15.w,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Generate Workout Plan',
+          style: GoogleFonts.ubuntu(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text('Select your fitness goal:',
-                style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _fitnessGoals
-                  .map((goal) => ChoiceChip(
-                        label: Text(goal),
-                        selected: _selectedGoal == goal,
-                        onSelected: (selected) {
-                          setState(() {
-                            _selectedGoal = selected ? goal : null;
-                          });
-                        },
-                      ))
-                  .toList(),
-            ),
-            const SizedBox(height: 16),
-            Text('Select your experience level:',
-                style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _experienceLevels
-                  .map((level) => ChoiceChip(
-                        label: Text(level),
-                        selected: _selectedExperience == level,
-                        onSelected: (selected) {
-                          setState(() {
-                            _selectedExperience = selected ? level : null;
-                          });
-                        },
-                      ))
-                  .toList(),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: (_selectedGoal != null &&
-                      _selectedExperience != null &&
-                      !_isLoading)
-                  ? _generateWorkoutPlan
-                  : null,
-              child: _isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text('Generate Workout Plan'),
-            ),
-            const SizedBox(height: 24),
-            if (_workoutPlan != null || _rawResponse != null)
-              Expanded(
-                child: SingleChildScrollView(
-                  child: _buildWorkoutPlanDisplay(),
-                ),
+      body: Stack(
+        children: [
+          Image.asset(
+            height: double.infinity,
+            width: double.infinity,
+            'assets/images/design2.png',
+            fit: BoxFit.fitHeight,
+            color: const Color(0xFF01FBE2),
+          ),
+          Positioned(
+            bottom: -10,
+            right: -10,
+            child: Transform.rotate(
+              angle: 80,
+              child: Image.asset(
+                'assets/images/design.png',
+                height: 150.h,
+                fit: BoxFit.contain,
+                color: const Color(0xFF01FBE2).withOpacity(.4),
               ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildWorkoutPlanDisplay() {
-    if (_workoutPlan != null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Your Personalized Workout Plan',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
-                ),
-          ),
-          const SizedBox(height: 16),
-          ..._workoutPlan!.entries
-              .map((entry) => _buildSection(entry.key, entry.value)),
-        ],
-      );
-    } else if (_rawResponse != null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Raw Response (Debug Info):',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-          ),
-          const SizedBox(height: 8),
-          Text(_rawResponse!),
-        ],
-      );
-    } else {
-      return const Text('No workout plan generated yet.');
-    }
-  }
-
-  Widget _buildSection(String title, dynamic content) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
             ),
-            const SizedBox(height: 8),
-            if (content is List)
-              ...content.map((item) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Text(item.toString()),
-                  ))
-            else
-              Text(content.toString()),
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Select your fitness goal:',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Divider(
+                  height: 20.h,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _fitnessGoals
+                      .map((goal) => Container(
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: Colors.black)),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 30.h,
+                                  // decoration: BoxDecoration(
+                                  //     border: Border.all(color: Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Image.asset(
+                                          'assets/icons/${goal}.png',
+                                          scale: 2,
+                                          color: _selectedGoal == goal
+                                              ? const Color(0xFF01FBE2)
+                                              : Colors.black,
+                                          fit: BoxFit.cover,
+                                          // _selectedGoal == goal
+                                          //     ? Colors.black
+                                          //     : Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Container(
+                                  // decoration: BoxDecoration(
+                                  //     border: Border.all(color: Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ChoiceChip(
+                                        backgroundColor: Colors.black,
+                                        selectedColor: const Color(0xFF01FBE2),
+                                        label: Text(
+                                          goal,
+                                          style: GoogleFonts.ubuntu(
+                                            color: _selectedGoal == goal
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                        selected: _selectedGoal == goal,
+                                        onSelected: (selected) {
+                                          setState(() {
+                                            _selectedGoal =
+                                                selected ? goal : null;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Select your experience level:',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Divider(
+                  height: 20.h,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _experienceLevels
+                      .map((level) => Container(
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: Colors.black)),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 30.h,
+                                  // decoration: BoxDecoration(
+                                  //     border: Border.all(color: Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Image.asset(
+                                          'assets/icons/${level}.png',
+
+                                          scale: 1.5,
+                                          color: _selectedExperience == level
+                                              ? const Color(0xFF01FBE2)
+                                              : Colors.black,
+
+                                          // _selectedGoal == goal
+                                          //     ? Colors.black
+                                          //     : Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Container(
+                                  // decoration: BoxDecoration(
+                                  //     border: Border.all(color: Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ChoiceChip(
+                                        backgroundColor: Colors.black,
+                                        selectedColor: const Color(0xFF01FBE2),
+                                        label: Text(
+                                          level,
+                                          style: GoogleFonts.ubuntu(
+                                            color: _selectedExperience == level
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                        selected: _selectedExperience == level,
+                                        onSelected: (selected) {
+                                          setState(() {
+                                            _selectedExperience =
+                                                selected ? level : null;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      disabledBackgroundColor: Colors.black54,
+                      backgroundColor: Colors.black,
+                      minimumSize: Size(300.w, 40.h)),
+                  onPressed: (_selectedGoal != null &&
+                          _selectedExperience != null &&
+                          !_isLoading)
+                      ? _generateWorkoutPlan
+                      : null,
+                  child: _isLoading
+                      ? const CircularProgressIndicator(
+                          color: Color(0xFF01FBE2),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Generate Workout Plan',
+                              style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Image.asset(
+                              'assets/icons/ai1.png',
+                              scale: 5,
+                              color: const Color(0xFF01FBE2),
+                            )
+                          ],
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -182,11 +322,13 @@ class _GenerateWorkoutPlanScreenState extends State<GenerateWorkoutPlanScreen> {
           "The plan should include: 1. Warm-up exercises 2. Main workout routine 3. Cool-down exercises "
           "Format the response as a JSON object with these keys: warmUp, mainWorkout, coolDown"
           "For exercises and tips, use an array of strings. "
+          "and one more thing avoid giving these symbols "
+          " and '' this symbols in your output."
           "Example format: "
           "{"
-          "  \"warmUp\": [\"Exercise 1\", \"Exercise 2\"],"
-          "  \"mainWorkout\": [\"Exercise 1\", \"Exercise 2\"],"
-          "  \"coolDown\": [\"Exercise 1\", \"Exercise 2\"],"
+          "  \"Warm-Up\": [\"Exercise 1\", \"Exercise 2\"],"
+          "  \"Main Workout\": [\"Exercise 1\", \"Exercise 2\"],"
+          "  \"CoolDown\": [\"Exercise 1\", \"Exercise 2\"],"
           "}");
 
       if (response?.output != null) {
@@ -197,6 +339,14 @@ class _GenerateWorkoutPlanScreenState extends State<GenerateWorkoutPlanScreen> {
           _workoutPlan = _parseWorkoutPlan(response.output!);
           _isLoading = false;
         });
+
+        if (_workoutPlan != null) {
+          changeScreen(
+              context,
+              WorkoutPlanDisplayScreen(workoutPlan: _workoutPlan),
+              PageTransitionType.leftToRight,
+              200);
+        }
       } else {
         throw Exception('No output from Gemini');
       }
@@ -233,7 +383,7 @@ class _GenerateWorkoutPlanScreenState extends State<GenerateWorkoutPlanScreen> {
 
   Map<String, dynamic> _processJsonResponse(Map<String, dynamic> jsonResponse) {
     // Process each section of the workout plan
-    ['warmUp', 'mainWorkout', 'coolDown'].forEach((key) {
+    ['Warm-Up', 'MainWorkout', 'CoolDown'].forEach((key) {
       if (jsonResponse[key] is List) {
         jsonResponse[key] = jsonResponse[key].map((item) {
           if (item is Map) {
