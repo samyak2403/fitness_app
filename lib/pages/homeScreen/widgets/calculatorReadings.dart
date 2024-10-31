@@ -40,18 +40,17 @@ class CalculatorReadings extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 10.h,
-                  ),
-                  SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: LottieBuilder.asset('assets/lotties/cal.json'),
+                    height: 40,
+                    // width: 40,
+                    child: LottieBuilder.asset(
+                      'assets/lotties/steps.json',
+                    ),
                   ),
                   SizedBox(
                     height: 10.h,
                   ),
                   Txt(
-                    txt: bmi != null ? bmi!.toStringAsFixed(2) : 'N/A',
+                    txt: bmi != null ? bmi.toStringAsFixed(2) : 'N/A',
                     fontSz: 10.sp,
                     fontWt: FontWeight.bold,
                     txtClr: Colors.white,

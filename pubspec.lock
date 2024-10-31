@@ -121,14 +121,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      sha256: bb4ab128fcb6f4a9f0f1f72d227db531818b20218984789777f049fcbf919279
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.6"
   dio:
     dependency: transitive
     description:
@@ -320,14 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.4"
-  glossy:
-    dependency: "direct main"
-    description:
-      name: glossy
-      sha256: e57a20a9883eecbb134a2495d602c75ed99f0bdf010ab09b6d56d680a6af8616
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   google_fonts:
     dependency: "direct main"
     description:

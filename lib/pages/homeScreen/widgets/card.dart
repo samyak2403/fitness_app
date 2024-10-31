@@ -81,13 +81,16 @@ class Cards extends StatelessWidget {
                             endIndent: 30,
                             height: 8,
                           ),
-                          Text(
-                            desc,
-                            // textAlign: TextAlign.center,
-                            style: GoogleFonts.ubuntu(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Text(
+                              desc,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.ubuntu(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800),
+                            ),
                           ),
                         ],
                       ),

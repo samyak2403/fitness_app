@@ -293,11 +293,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 20.h,
                         ),
                         TextRich(
-                          txt1: 'BodyFit.',
+                          txt1: 'Be',
                           txtClr1: ColorTemplates.textClr,
                           fontWt1: FontWeight.bold,
                           fontSZ1: 20.sp,
-                          txt2: 'io',
+                          txt2: 'Fit',
                           txtClr2: const Color(0xFF01FBE2),
                           fontWt2: FontWeight.bold,
                           fontSZ2: 20.sp,

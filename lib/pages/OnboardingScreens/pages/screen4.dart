@@ -28,17 +28,18 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
     final authSerivce = ref.watch(authServiceProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
           child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextRich(
-              txt1: 'BodyFit.',
+              txt1: 'Be',
               txtClr1: ColorTemplates.textClr,
               fontWt1: FontWeight.bold,
               fontSZ1: 25.sp,
-              txt2: 'io',
+              txt2: 'Fit',
               txtClr2: const Color(0xFF01FBE2),
               fontWt2: FontWeight.bold,
               fontSZ2: 25.sp,
@@ -56,7 +57,7 @@ class _OnboardingScreen4State extends ConsumerState<OnboardingScreen4> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Txt(
-                  txt: 'Welcome to BodyFit.io Top PlatForm to Every people',
+                  txt: 'Welcome to BeFit Top PlatForm to Every people',
                   fontSz: 15.sp,
                   fontWt: FontWeight.w500,
                   txtClr: ColorTemplates.textClr),

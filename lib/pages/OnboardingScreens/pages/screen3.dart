@@ -17,7 +17,9 @@ class OnboardingScreen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+          backgroundColor: Colors.white,
           leading: IconBttn(
               onClick: () => changeScreen(context, const OnboardingScreen2(),
                   PageTransitionType.leftToRightWithFade, 200),
@@ -33,14 +35,14 @@ class OnboardingScreen3 extends StatelessWidget {
               children: [
                 Text.rich(
                   TextSpan(
-                    text: 'BodyFit.',
+                    text: 'Be',
                     style: GoogleFonts.ubuntu(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 25.sp),
                     children: [
                       TextSpan(
-                        text: 'io',
+                        text: 'Fit',
                         style: GoogleFonts.ubuntu(
                             color: const Color(0xFF01FBE2),
                             fontWeight: FontWeight.bold,

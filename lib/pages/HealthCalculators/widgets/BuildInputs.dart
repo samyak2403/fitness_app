@@ -50,7 +50,7 @@ class _BuildInputsState extends State<BuildInputs> {
             hintText: 'Enter Height',
             hintStyle: GoogleFonts.ubuntu(
                 color: Colors.black.withOpacity(.5),
-                fontWeight: FontWeight.w400),
+                fontWeight: FontWeight.w600),
             labelText: 'Height (in cm)',
             labelStyle: GoogleFonts.ubuntu(
                 color: Colors.black, fontWeight: FontWeight.w800),
@@ -74,7 +74,7 @@ class _BuildInputsState extends State<BuildInputs> {
             hintText: 'Enter Weight',
             hintStyle: GoogleFonts.ubuntu(
                 color: Colors.black.withOpacity(.5),
-                fontWeight: FontWeight.w400),
+                fontWeight: FontWeight.w600),
             labelText: 'Weight (in kg)',
             labelStyle: GoogleFonts.ubuntu(
                 color: Colors.black, fontWeight: FontWeight.w800),
@@ -92,7 +92,7 @@ class _BuildInputsState extends State<BuildInputs> {
         if (widget.selectedCalculator == 'BMR (Basal Metabolic Rate)' ||
             widget.selectedCalculator == 'IBW (Ideal Body Weight)') ...[
           SizedBox(height: 20.h),
-          // Age Input
+
           TextField(
             controller: widget.ageController,
             keyboardType: TextInputType.number,
@@ -101,7 +101,7 @@ class _BuildInputsState extends State<BuildInputs> {
               hintText: 'Enter Age',
               hintStyle: GoogleFonts.ubuntu(
                   color: Colors.black.withOpacity(.5),
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.w600),
               labelText: 'Age',
               labelStyle: GoogleFonts.ubuntu(
                   color: Colors.black, fontWeight: FontWeight.w800),

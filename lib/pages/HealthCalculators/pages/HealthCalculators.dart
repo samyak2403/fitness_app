@@ -173,7 +173,8 @@ class _HealthCalculatorsScreenState extends State<HealthCalculatorsScreen> {
                       minimumSize: Size(300.w, 40.h),
                     ),
                     onPressed: (_selectedCalculator != null && !_isLoading)
-                        ? _calculateResult // Trigger BMI calculation
+                        ? _calculateResult
+                        // Trigger BMI calculation
                         : null,
                     child: _isLoading
                         ? const CircularProgressIndicator(

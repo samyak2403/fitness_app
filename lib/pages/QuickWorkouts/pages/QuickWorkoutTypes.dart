@@ -279,8 +279,8 @@ class _QuickWorkoutTypesState extends State<QuickWorkoutTypes> {
                                                   null) {
                                             return const Center(
                                                 child: CircularProgressIndicator(
-                                                    color: Color(
-                                                        0xFF01FBE2))); // Handle loading state
+                                                    color: Colors
+                                                        .black)); // Handle loading state
                                           }
                                           List<String> workoutImageUrls =
                                               snapshot.data!['workouts_photo']!;
