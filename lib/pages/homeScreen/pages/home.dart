@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(email).get();
-
+      log("Entered");
       if (userDoc.exists) {
         setState(() {
           bmi = userDoc['BMI']?['value']?.toDouble();
@@ -61,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
           hrc = userDoc['HRC']?['value']?.toInt();
           overallHealthPercentage =
               userDoc['OverallHealthPercentage']?['value']?.toDouble();
+          log(bmi.toString());
+          log(bmr.toString());
+          log(hrc.toString());
           log(overallHealthPercentage.toString());
         });
       }
@@ -631,14 +634,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(width: 10.w),
                           CalculatorReadings(
-                              onClick: () => changeScreen(
-                                  context,
-                                  HealthCalculatorsScreen(userEmail: email),
-                                  PageTransitionType.leftToRightWithFade,
-                                  200),
-                              bmi: bmi!,
-                              bmr: bmr!,
-                              hrc: hrc!)
+                            onClick: () => changeScreen(
+                              context,
+                              HealthCalculatorsScreen(userEmail: email),
+                              PageTransitionType.leftToRightWithFade,
+                              200,
+                            ),
+                            bmi: bmi ?? 0.0,
+                            bmr: bmr ?? 0,
+                            hrc: hrc ?? 0,
+                          )
                         ],
                       ),
                       SizedBox(

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class HealthCalculatorsScreen extends StatefulWidget {
-  final String userEmail; // Assume you pass the user's email here
+  final String userEmail;
 
   const HealthCalculatorsScreen({Key? key, required this.userEmail})
       : super(key: key);

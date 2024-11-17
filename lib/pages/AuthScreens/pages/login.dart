@@ -122,7 +122,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     double appBarHeight = kToolbarHeight;
     log(appBarHeight.h.toString());
     final height = MediaQuery.of(context).size.height;
-    final containerHeight = height - (200.h + appBarHeight.h + 27);
+    final containerHeight = height - (200.h + appBarHeight.h);
     return Scaffold(
       appBar: AppBar(
           forceMaterialTransparency: true,

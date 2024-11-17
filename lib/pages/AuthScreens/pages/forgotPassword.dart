@@ -79,7 +79,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
     // final isLoading = ref.read(loadingProvider);
     final appbarHeight = kToolbarHeight;
     final screenHeight = MediaQuery.of(context).size.height;
-    final containerHeight = screenHeight - (200.h + appbarHeight.h + 27);
+    final containerHeight = screenHeight - (200.h + appbarHeight.h);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
