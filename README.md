@@ -1,16 +1,50 @@
-# fitness_app
+# **BeFit App**  
 
-A new Flutter project.
+## **Project Description**  
+The **BeFit App** is a personalized fitness and health tracking application. It combines AI-powered solutions and interactive tools to help users achieve their fitness goals. From generating custom workout and nutrition plans to providing detailed calculators for BMI, BMR, and HRC, the app offers a comprehensive approach to fitness management.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## **Table of Contents**  
+1. [Features](#features)  
+2. [Technologies Used](#technologies-used)  
+3. [Installation](#installation)  
+4. [Usage](#usage)  
+5. [AI Integration](#ai-integration)  
+6. [Screenshots](#screenshots)  
+7. [Video and Photos](#video-and-photos)  
+8. [Feedback](#feedback)  
+9. [Contact](#contact)  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## **Features**  
+- **Health Percentage Pie Chart**:  
+  Visualize your health status based on BMI, HRC, and BMR calculations.  
+- **Workouts with Video Tutorials**:  
+  Access a library of workouts with step-by-step video guidance.  
+- **AI Workout Generator**:  
+  Create personalized workout plans tailored to individual user preferences and fitness levels.  
+- **AI Nutrition Plan Generator**:  
+  Receive custom nutrition plans designed using AI technology.  
+- **Health Calculators**:  
+  - **BMI Calculator**: Calculate Body Mass Index.  
+  - **BMR Calculator**: Determine Basal Metabolic Rate.  
+  - **HRC Calculator**: Evaluate Heart Rate Category.  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## **Technologies Used**  
+- **Framework**: Flutter  
+- **Programming Language**: Dart  
+- **Database**: Firebase  
+- **AI Solutions**: Gemini AI  
+- **IDE**: Visual Studio Code  
+
+---
+
+## **Installation**  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/your-username/befit-app.git
+   cd befit-app
