@@ -9,10 +9,8 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
 1. [Features](#features)  
 2. [Technologies Used](#technologies-used)  
 3. [Installation](#installation)  
-4. [Usage](#usage)  
-5. [AI Integration](#ai-integration)  
-6. [Screenshots](#screenshots)  
-7. [Demo Video](#Demo-Video)  
+4. [Usage](#usage)   
+5. [Demo Video](#Demo-Video)  
 
 ---
 
@@ -48,8 +46,7 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
    cd befit-app
 1. Clone the repository:  
    ```bash
-   [git clone https://github.com/your-username/befit-app.git
-   cd befit-app](https://drive.google.com/file/d/19_ds2Bf6QuW2ZsBQKjER6FRM9mrdpNVf/view?usp=sharing)
+   https://drive.google.com/file/d/19_ds2Bf6QuW2ZsBQKjER6FRM9mrdpNVf/view?usp=sharing
   
 ---
 
