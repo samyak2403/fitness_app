@@ -12,9 +12,7 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
 4. [Usage](#usage)  
 5. [AI Integration](#ai-integration)  
 6. [Screenshots](#screenshots)  
-7. [Video and Photos](#video-and-photos)  
-8. [Feedback](#feedback)  
-9. [Contact](#contact)  
+7. [Demo Video](#Demo-Video)  
 
 ---
 
