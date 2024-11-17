@@ -46,7 +46,11 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
    ```bash
    git clone https://github.com/your-username/befit-app.git
    cd befit-app
-
+1. Clone the repository:  
+   ```bash
+   [git clone https://github.com/your-username/befit-app.git
+   cd befit-app](https://drive.google.com/file/d/19_ds2Bf6QuW2ZsBQKjER6FRM9mrdpNVf/view?usp=sharing)
+  
 ---
 
 ## **Usage**  
