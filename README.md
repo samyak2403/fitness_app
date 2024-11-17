@@ -48,3 +48,20 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
    ```bash
    git clone https://github.com/your-username/befit-app.git
    cd befit-app
+
+---
+
+## **Usage**  
+- **Calculate Health Metrics**: Use the BMI, BMR, and HRC calculators for personalized metrics.
+- **Generate AI Plans**: Attempt aptitude tests and review answers.
+- **Track Health Progress**: Monitor health status with the percentage pie chart.
+- **Follow Workouts**: Watch video tutorials for guided workouts.
+
+---
+
+## **ScreenShots**  
+
+
+---
+
+## **Demo Video** 
