@@ -57,9 +57,12 @@ The **BeFit App** is a personalized fitness and health tracking application. It 
 
 ---
 
-## **ScreenShots**  
-![Screenshot_20241117_141325](https://github.com/user-attachments/assets/044865b0-35cd-48a5-8745-8179a0aba949)
+## **Screenshots**  
 
+<div style="display: flex; flex-direction: row; justify-content: space-around;">
+  <img src="[./assets/screenshots/image1.png](https://github.com/user-attachments/assets/044865b0-35cd-48a5-8745-8179a0aba949)" alt="Screenshot 1" width="45%">
+  <img src="[./assets/screenshots/image2.png](https://github.com/user-attachments/assets/044865b0-35cd-48a5-8745-8179a0aba949)" alt="Screenshot 2" width="45%">
+</div>
 
 ---
 
